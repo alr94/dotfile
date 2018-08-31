@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='scp://areynold@dunegpvm01.fnal.gov//dune/app/users/areynold/larsoftBuild/srcs/dunetpc/dune/Protodune/'
+let g:netrw_dirhist_2='scp://areynold@dunegpvm01.fnal.gov//dune/app/users/areynold/larsoftBuild/srcs/dunetpc/dune/Protodune/PhysicsWeek/'
+let g:netrw_dirhist_3='/home/reynoldsal/Documents/Computing/Algorithms/W5/placing_parentheses'
+let g:netrw_dirhist_4='/home/reynoldsal/.mozilla/firefox/2f20l9at.default/chrome'
+let g:netrw_dirhist_5='scp://areynold@lxplus.cern.ch//afs/cern.ch/work/a/areynold/larsoftBuild/PhysicsWeek/'
+let g:netrw_dirhist_6='scp://areynold@lxplus.cern.ch//afs/cern.ch/work/a/areynold/larsoftBuild/'
+let g:netrw_dirhist_7='scp://areynold@lxplus.cern.ch//afs/cern.ch/work/a/areynold/larsoftBuild/dunetpc/dune/Protodune/PhysicsWeek/'
