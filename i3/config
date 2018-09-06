@@ -131,7 +131,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Default workspaces
 assign [class="qutebrowser"] $ws1
 assign [class="konsole"] $ws2
-assign [class="MuPDF"] $ws3
+# assign [class="MuPDF"] $ws3
 assign [class="Typora"] $ws4
 assign [class="discord"] $ws5
 for_window [class="Spotify"] move window to workspace $ws6
@@ -155,6 +155,7 @@ workspace $ws10 output DP3-2
 for_window [class="Browser"] floating enable
 for_window [class="ROOT"] floating enable
 for_window [class="URxvt"] floating enable
+for_window [class="MuPDF"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
