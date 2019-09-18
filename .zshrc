@@ -11,10 +11,10 @@ export ZSH="/home/areynold/.oh-my-zsh"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="my_agnoster"
-source ~/Packages/nerd-fonts/bin/scripts/lib/i_all.sh
+source /usr/lib/nerd-fonts-complete/i_all.sh
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
+ZSH_THEME="powerlevel10k/powerlevel10k"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context virtualenv dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time command_execution_time)
 
 # Set list of themes to load
@@ -127,8 +127,12 @@ xhost +local:root > /dev/null 2>&1
 # ZMV
 autoload -U zmv
 
+# alias for ranger in urxvt
+alias rngr=urxvt -e ranger
+
 # ls etc
 alias ll='ls -lhF'
+alias ltr='ls -lhtr'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -136,6 +140,7 @@ alias c='clear'
 alias cl='clear;l'
 alias cla='clear;la'
 alias cll='clear;ll'
+alias cltr='clear;ltr'
 
 
 # swap files
@@ -156,18 +161,25 @@ function npdaq() { ssh -Y np04daq@np04-srv-0"$1" }
 function lxp() { ssh -Y lxplus"$1".cern.ch }
 function dg() { ssh -Y dunegpvm"$1".fnal.gov }
 
-alias pp8='ssh  -Y reynoldsa@pplxint8.physics.ox.ac.uk'
+alias pp8='ssh -Y reynoldsa@pplxint8.physics.ox.ac.uk'
 alias pp9='ssh -Y reynoldsa@pplxint9.physics.ox.ac.uk'
 
-alias lxb='ssh dune-vm-build-03.cern.ch'
+alias lxb='ssh dune-vm-build-03'
 
 alias db1='ssh dunebuild01.fnal.gov'
 
 # Latex compiler
 alias mylatex='pdflatex -synctex=1 -interaction=nonstopmode main.tex; bibtex main.aux; pdflatex -synctex=1 -interaction=nonstopmode main.tex; pdflatex -synctex=1 -interaction=nonstopmode main.tex'
+alias thesislatex='pdflatex -interaction=nonstopmode Oxford_Thesis.tex; biber Oxford_Thesis; pdflatex -interaction=nonstopmode Oxford_Thesis.tex; pdflatex -interaction=nonstopmode Oxford_Thesis.tex'
+alias outlinelatex='pdflatex -interaction=nonstopmode outline.tex; biber outline; pdflatex -interaction=nonstopmode outline.tex; pdflatex -interaction=nonstopmode outline.tex'
 
 # ROOT
+source ~/myroot/build/bin/thisroot.sh
 alias root='root -l'
+
+# networking
+host='192.168.1.*'
+alias macaddress="sudo nmap -sP \'${host}\' | grep MAC"
 
 # Misc
 alias graphics='sudo mhwd -f -i pci video-hybrid-intel-nvidia-390xx-bumblebee'
@@ -175,3 +187,6 @@ alias imshow='magick display'
 alias display='xrandr --output DP3-2 --mode 2560x1440 --rate 74.94'
 
 neofetch
+
+# VNC
+alias vnctunnel='ssh -K -L 5999:localhost:5999 -N -f -l areynold dunegpvm04.fnal.gov'
