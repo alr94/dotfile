@@ -2,7 +2,7 @@
 bindkey -v
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/areynold/.oh-my-zsh"
@@ -135,6 +135,7 @@ alias ll='ls -lhF'
 alias ltr='ls -lhtr'
 alias la='ls -A'
 alias l='ls -CF'
+alias lmb='ls -lhSr'
 
 alias c='clear'
 alias cl='clear;l'
@@ -156,13 +157,14 @@ export KRB5_CONFIG=$HOME/krb5.conf
 alias klist='klist -A'
 
 # SSH commands
-function np() { ssh -Y np04-srv-0"$1" }
-function npdaq() { ssh -Y np04daq@np04-srv-0"$1" }
-function lxp() { ssh -Y lxplus"$1".cern.ch }
-function dg() { ssh -Y dunegpvm"$1".fnal.gov }
+function np() { ssh -YK np04-srv-0"$1" }
+function npdaq() { ssh -YK np04daq@np04-srv-0"$1" }
+function lxp() { ssh -YK lxplus"$1".cern.ch }
+function dg() { ssh -YK dunegpvm"$1".fnal.gov }
 
-alias pp8='ssh -Y reynoldsa@pplxint8.physics.ox.ac.uk'
-alias pp9='ssh -Y reynoldsa@pplxint9.physics.ox.ac.uk'
+function pp() { ssh -YK reynoldsa@pplxint"$1".physics.ox.ac.uk }
+alias pp8='ssh -YK reynoldsa@pplxint8.physics.ox.ac.uk'
+alias pp9='ssh -YK reynoldsa@pplxint9.physics.ox.ac.uk'
 
 alias lxb='ssh dune-vm-build-03'
 
@@ -170,11 +172,11 @@ alias db1='ssh dunebuild01.fnal.gov'
 
 # Latex compiler
 alias mylatex='pdflatex -synctex=1 -interaction=nonstopmode main.tex; bibtex main.aux; pdflatex -synctex=1 -interaction=nonstopmode main.tex; pdflatex -synctex=1 -interaction=nonstopmode main.tex'
-alias thesislatex='pdflatex -interaction=nonstopmode Oxford_Thesis.tex; biber Oxford_Thesis; pdflatex -interaction=nonstopmode Oxford_Thesis.tex; pdflatex -interaction=nonstopmode Oxford_Thesis.tex'
+alias tl='pdflatex -interaction=nonstopmode Oxford_Thesis.tex; biber Oxford_Thesis; pdflatex -interaction=nonstopmode Oxford_Thesis.tex; pdflatex -interaction=nonstopmode Oxford_Thesis.tex'
 alias outlinelatex='pdflatex -interaction=nonstopmode outline.tex; biber outline; pdflatex -interaction=nonstopmode outline.tex; pdflatex -interaction=nonstopmode outline.tex'
 
 # ROOT
-source ~/myroot/build/bin/thisroot.sh
+# source ~/myroot/build/bin/thisroot.sh
 alias root='root -l'
 
 # networking
@@ -186,7 +188,7 @@ alias graphics='sudo mhwd -f -i pci video-hybrid-intel-nvidia-390xx-bumblebee'
 alias imshow='magick display'
 alias display='xrandr --output DP3-2 --mode 2560x1440 --rate 74.94'
 
-neofetch
-
 # VNC
-alias vnctunnel='ssh -K -L 5999:localhost:5999 -N -f -l areynold dunegpvm04.fnal.gov'
+function vnctunnel() { ssh -K -L 59"$1":localhost:5999 -N -f -l areynold dunegpvm04.fnal.gov }
+
+neofetch
