@@ -13,14 +13,14 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Other plugins
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
+Plugin 'godlygeek/tabular'
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'wikitopian/hardmode'
 Plugin 'dpc/vim-smarttabs'
+Plugin 'tpope/vim-ragtag'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -65,8 +65,8 @@ nnoremap <C-y> 20<C-y>
 set cursorline
 
 " newline at 80 characters
-set tw=80
-set fo+=t
+" set tw=80
+" set fo+=t
 
 " Syntax highlighting
 syntax on 
@@ -77,14 +77,21 @@ set encoding=utf-8
 inoremap jk <ESC>
 
 " set column colour to different after 80
-highlight ColorColumn ctermbg=0
-let &colorcolumn=join(range(81,999),",")
+" highlight ColorColumn ctermbg=0
+" let &colorcolumn=join(range(81,),",")
 
 " Allow mouse scroll while using TMUX
 set mouse=a
 
 " start nerdtree at startup
 " autocmd vimenter * NERDTree
+" Go to previous (last accessed) window.
+" autocmd VimEnter * wincmd p
+
+map <F5> :NERDTree <CR>
+
+" close nerdtree if last buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " you complete me setup
 let g:ycm_showdiagnostics_ui = 0
@@ -99,38 +106,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " resize to 80 chars
 map <F2> :vertical resize 84 <CR>
 
-" bracket auto completion
-""inoremap {      {}<Left>
-""inoremap {<CR>  {<CR>}<Esc>O
-""inoremap {{     {
-""inoremap {}     {}
-""
-""inoremap (      ()<Left>
-""inoremap (<CR>  (<CR>)<Esc>O
-""inoremap ((     (
-""inoremap ()     ()
-""
-""inoremap [      []<Left>
-""inoremap [<CR>  [<CR>]<Esc>O
-""inoremap [[     [
-""inoremap []     []
-""
-""inoremap "      ""<Left>
-""inoremap "<CR>  "<CR>"<Esc>O
-""inoremap ""     "
-""inoremap ""     ""
-""
-""inoremap '      ''<Left>
-""inoremap '<CR>  '<CR>'<Esc>O
-""inoremap ''     '
-""inoremap ''     ''
-""
-""inoremap <      <><Left>
-""inoremap <<CR>  <<CR>><Esc>O
-""inoremap <<     <
-""inoremap <>     <>
-
-" fzf in current dir
 set path+=**
 map <F3> :sf<Space>
 
@@ -138,8 +113,8 @@ map <F3> :sf<Space>
 command! MakeTags !ctags -R .
 
 " set hard mode for now
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-let g:HardMode_level = 'wannabe'
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" let g:HardMode_level = 'wannabe'
 
 " if looping though tags open tag in a new page when buffer not saved
 fun! SPLITAG() range
@@ -163,10 +138,17 @@ nmap <C-]> :call SPLITAG()<CR>z.
 
 " spell checker
 map <F10> :setlocal spell! spelllang=en_gb<CR>
-
-" r markdown
-" autocmd Filetype rmd map <F5> :!echo<space>"require(rmarkdown);<space>render('<c-r>%')"<space>\|<space>R<space>--vanilla<enter>
-
+autocmd BufRead,BufNewFile *.tex setlocal spell
+autocmd BufRead,BufNewFile *.txt setlocal spell
+autocmd BufRead,BufNewFile *.md setlocal spell
+set complete+=kspell
 
 " set tw=0
 map <F4> :set tw=0
+
+" lightline
+set laststatus=2
+
+" visible tabs
+set list
+set listchars=tab:-\|
