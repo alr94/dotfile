@@ -1,0 +1,156 @@
+#################################
+######### Account GMAIL #########
+#################################
+
+IMAPAccount GMAIL
+Host imap.gmail.com
+User username
+PassCmd "/home/areynold/bin/keyring get username"
+SSLType IMAPS
+SSLVersions TLSv1.2
+
+# Remote storage
+IMAPStore GMAIL-remote
+Account GMAIL
+
+# Local storage
+MaildirStore GMAIL-local
+Path ~/.mail/GMAIL/
+Inbox ~/.mail/GMAIL/INBOX
+
+Channel GMAIL-inbox
+Master :GMAIL-remote:"INBOX"
+Slave :GMAIL-local:Gmail-inbox
+Create Both
+Expunge Both
+
+Channel GMAIL-spam
+Master :GMAIL-remote:"[Gmail]/Spam"
+Slave :GMAIL-local:Gmail-Spam
+Create Both
+Expunge Both
+
+Channel GMAIL-bin
+Master :GMAIL-remote:"[Gmail]/Bin"
+Slave :GMAIL-local:Gmail-Bin
+Create Both
+Expunge Both
+
+Channel GMAIL-read
+Master :GMAIL-remote:"Inbox/Read"
+Slave :GMAIL-local:Gmail-Read
+Create Both
+Expunge Both
+
+Channel GMAIL-drafts
+Master :GMAIL-remote:"[Gmail]/Drafts"
+Slave :GMAIL-local:Gmail-Drafts
+Create Both
+Expunge Both
+
+Channel GMAIL-sent
+Master :GMAIL-remote:"[Gmail]/Sent Mail"
+Slave :GMAIL-local:Gmail-SentMail
+Create Both
+Expunge Both
+
+Group GMAIL
+Channel GMAIL-inbox
+Channel GMAIL-spam
+Channel GMAIL-bin
+Channel GMAIL-read
+Channel GMAIL-drafts
+Channel GMAIL-sent
+
+#################################
+########## Account OX ###########
+#################################
+
+IMAPAccount OX
+Host outlook.office365.com
+User username
+PassCmd "/home/areynold/bin/keyring get username"
+SSLType IMAPS
+SSLVersions TLSv1.2
+
+# Remote storage
+IMAPStore OX-remote
+Account OX
+
+# Local storage
+MaildirStore OX-local
+Path ~/.mail/OX/
+Inbox ~/.mail/OX/INBOX
+
+Channel OX-inbox
+Master :OX-remote:"INBOX"
+Slave :OX-local:OX-inbox
+Create Both
+Expunge Both
+
+Channel OX-sent
+Master :OX-remote:"Sent Items"
+Slave :OX-local:OX-sent
+Create Both
+Expunge Both
+
+Channel OX-drafts
+Master :OX-remote:"Drafts"
+Slave :OX-local:OX-drafts
+Create Both
+Expunge Both
+
+Channel OX-junk
+Master :OX-remote:"Junk Email"
+Slave :OX-local:OX-junk
+Create Both
+Expunge Both
+
+Channel OX-trash
+Master :OX-remote:"Trash"
+Slave :OX-local:OX-trash
+Create Both
+Expunge Both
+
+Channel OX-athletics
+Master :OX-remote:"Inbox/Athletics"
+Slave :OX-local:OX-athletics
+Create Both
+Expunge Both
+
+Channel OX-other
+Master :OX-remote:"Inbox/Other"
+Slave :OX-local:OX-other
+Create Both
+Expunge Both
+
+Channel OX-ouac
+Master :OX-remote:"Inbox/OUAC"
+Slave :OX-local:OX-ouac
+Create Both
+Expunge Both
+
+
+Channel OX-oxford
+Master :OX-remote:"Inbox/Oxford"
+Slave :OX-local:OX-oxford
+Create Both
+Expunge Both
+
+Channel OX-physics
+Master :OX-remote:"Inbox/Physics"
+Slave :OX-local:OX-physics
+Create Both
+Expunge Both
+
+Group OX
+Channel OX-inbox
+Channel OX-sent
+Channel OX-drafts
+Channel OX-junk
+Channel OX-trash
+Channel OX-athletics
+Channel OX-other
+Channel OX-ouac
+Channel OX-oxford
+Channel OX-physics

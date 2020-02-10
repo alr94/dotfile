@@ -1,0 +1,26 @@
+set from="email@address.com"
+set sendmail = "msmtp -a GMAIL"
+
+# Set folders
+set spoolfile="+GMAIL/Gmail-inbox"
+set postponed="+GMAIL/Gmail-Drafts"
+set record="+GMAIL/Gmail-SentMail"
+set trash="+GMAIL/Gmail-Bin"
+
+# alternate email adresses
+alternates ^email@address.com$
+
+color status cyan default
+
+# Sync this account
+macro index o "<shell-escape>mbsync GMAIL<enter>" "run mbsync to sync mail for this account"
+
+macro index,pager J \
+  "<enter-command>set my_old_resolve=\$resolve noresolve<enter>\
+  <tag-prefix><clear-flag>n<enter-command>set resolve=\$my_old_resolve<enter>\
+  <save-message>+GMAIL/Spam<enter>" \
+  "mark as read and move to junk folder"
+
+macro index,pager i \
+  "<save-message>+GMAIL/INBOX<enter>"  \
+  "move message to the inbox"
