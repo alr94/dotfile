@@ -152,3 +152,6 @@ set laststatus=2
 " visible tabs
 set list
 set listchars=tab:-\|
+
+" mutt editor config
+autocmd BufNewFile,BufRead ~/.mutt/tmp/* set noautoindent filetype=mail tw=0 digraph nolist
