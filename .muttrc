@@ -152,7 +152,7 @@ bind index,pager <up> sidebar-prev
 bind index,pager <right> sidebar-open
 
 # global index and pager shortcuts
-bind index,pager @ compose-to-sender
+# bind index,pager @ compose-to-sender
 bind index,pager R group-reply
 bind index,pager D purge-message
 bind index <left> sync-mailbox
@@ -181,13 +181,14 @@ macro index A \
   "mark all new as read"
 
 # opening urls with urlscan
-macro pager \cb "<pipe-message> urlview<Enter>" "call urlscan to extract URLs out of a message"
+macro index,pager \cb "<pipe-message>urlscan --run 'qutebrowser {}'<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry>urlscan --run 'qutebrowser {}'<Enter>" "call urlscan to extract URLs out of a message"
 
 # Sync all email
 macro index,pager O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all mail"
 
 # Macro to open in browser
-macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > ~/.cache/mutt/bodies/mail.html<enter><shell-escape>qutebrowser ~/.cache/mutt/bodies/mail.html<enter>"
+macro attach \cj "<pipe-entry>iconv -c --to-code=UTF8 > ~/.mutt/cache/bodies/mail.html<enter><shell-escape>qutebrowser ~/.mutt/cache/bodies/mail.html<enter>"
 
 # Search macros with notmuch-mutt
 macro index <F8> \
