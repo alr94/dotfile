@@ -35,7 +35,8 @@ bindsym $mod+Return exec konsole
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec "rofi -combi-modi window,drun -show combi -modi combi -sort"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -98,10 +99,10 @@ set $ws2 "2. Terminals "
 set $ws3 "3. Reading "
 set $ws4 "4. Notes "
 set $ws5 "5. Discord "
-set $ws6 "6. Spotify "
-set $ws7 "7. Other"
-set $ws8 "8. Other"
-set $ws9 "9. Thunderbird "
+set $ws6 "6. WhatsApp 甆"
+set $ws7 "7. Calendar "
+set $ws8 "8. Spotify "
+set $ws9 "9. Email "
 set $ws10 "10. Slack "
 
 # switch to workspace
@@ -116,6 +117,17 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+bindsym $mod+exclam       workspace $ws1
+bindsym $mod+quotedbl     workspace $ws2
+bindsym $mod+sterling     workspace $ws3
+bindsym $mod+dollar       workspace $ws4
+bindsym $mod+percent       workspace $ws5
+bindsym $mod+asciicircum  workspace $ws6
+bindsym $mod+ampersand     workspace $ws7
+bindsym $mod+asterisk     workspace $ws8
+bindsym $mod+minus         workspace $ws9
+bindsym $mod+equal         workspace $ws10
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -128,14 +140,25 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+bindsym $mod+Shift+exclam      move container to workspace $ws1
+bindsym $mod+Shift+quotedbl    move container to workspace $ws2
+bindsym $mod+Shift+sterling    move container to workspace $ws3
+bindsym $mod+Shift+dollar      move container to workspace $ws4
+bindsym $mod+Shift+percent     move container to workspace $ws5
+bindsym $mod+Shift+asciicircum move container to workspace $ws6
+bindsym $mod+Shift+ampersand   move container to workspace $ws7
+bindsym $mod+Shift+asterisk    move container to workspace $ws8
+bindsym $mod+Shift+minus       move container to workspace $ws8
+bindsym $mod+Shift+equal       move container to workspace $ws9
+
 # Default workspaces
 assign [class="qutebrowser"] $ws1
 assign [class="konsole"] $ws2
-# assign [class="MuPDF"] $ws3
 assign [class="Typora"] $ws4
 assign [class="discord"] $ws5
-for_window [class="Spotify"] move window to workspace $ws6
-assign [class="Steam"] $ws8
+assign [class="whatsapp-nativefier-d52542"] $ws6
+assign [class="google-calendar-nativefier-e22938"] $ws7
+for_window [class="Spotify"] move window to workspace $ws8
 assign [class="Thunderbird"] $ws9
 assign [class="Slack"] $ws10
 
@@ -145,17 +168,17 @@ workspace $ws2 output DP3-2
 workspace $ws3 output DP3-2
 workspace $ws4 output eDP1
 workspace $ws5 output DP3-2
-workspace $ws6 output DP3-2
+workspace $ws6 output DP3-3
 workspace $ws7 output DP3-2
-workspace $ws8 output DP3-2
+workspace $ws8 output eDP1
 workspace $ws9 output DP3-2
 workspace $ws10 output DP3-2
 
 # Floaters
 for_window [class="Browser"] floating enable
 for_window [class="ROOT"] floating enable
-for_window [class="URxvt"] floating enable
 for_window [class="MuPDF"] floating enable
+for_window [class="Eog"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -166,18 +189,12 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym h resize shrink width 5 px or 5 ppt
         bindsym j resize grow height 5 px or 5 ppt
         bindsym k resize shrink height 5 px or 5 ppt
         bindsym l resize grow width 5 px or 5 ppt
 
-        # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
@@ -194,7 +211,7 @@ default_border none
 for_window [class="^.*"] border pixel 1
 
 # colors
-set $bg-color 	         #2f343f
+set $bg-color            #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
@@ -213,33 +230,34 @@ hide_edge_borders both
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	#status_command i3status
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	position top
-	tray_output primary
-	colors {
-		background $bg-color
-		separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
+  #status_command i3status
+  status_command i3blocks -c ~/.config/i3/i3blocks.conf
+  position top
+  tray_output primary
+  colors {
+    background $bg-color
+    separator #757575
+    #                  border             background         text
+    focused_workspace  $bg-color          $bg-color          $text-color
+    inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+    urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+  }
 }
 
 # Displays
-set $DisplayMode "[w]ork, [l]aptop, [h]ome"
+set $DisplayMode "[w]ork, [l]aptop, [h]ome, [r]eset"
 
 bindsym $mod+Home mode $DisplayMode
 
 mode $DisplayMode {
 
-	bindsym w exec ~/.screenlayout/work_setup.sh; mode "default"
-	bindsym l exec ~/.screenlayout/laptop_setup.sh; mode "default"
-	bindsym h exec ~/.screenlayout/home_setup.sh; mode "default"
+  bindsym w exec ~/.screenlayout/work_setup.sh; mode "default"
+  bindsym l exec ~/.screenlayout/laptop_setup.sh; mode "default"
+  bindsym h exec ~/.screenlayout/home_setup.sh; mode "default"
+  bindsym r exec ~/.screenlayout/display_reset.sh; mode "default"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 
 }
 
@@ -257,27 +275,42 @@ bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 bindsym XF86TouchpadToggle exec ~/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
+# Laptop
+bindsym $mod+F5 exec playerctl play-pause
+bindsym $mod+F6 exec playerctl previous
+bindsym $mod+F7 exec playerctl next
+# Ergodox
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # add shortcut to lock screen
-bindsym $mod+shift+x exec ~/.config/i3/multiscreen_lock.sh
+bindsym $mod+shift+x exec rm /tmp/screen*.png; exec ~/.config/i3/multiscreen_lock.sh
+
+# civ
+bindsym $mod+c exec --no-startup-id zsh ~/bin/civ.sh
 
 # Startups
 exec slack
 exec konsole
 exec spotify
-exec thunderbird
 exec discord
 exec typora
 exec qutebrowser
+exec insync start
+exec whatsapp-nativefier
+exec google-calendar
+exec --no-startup-id "i3-msg 'workspace 9. Email ; append_layout ~/.config/i3/workspace-9.json'"
+exec konsole --profile Mutt -e neomutt
 
 # Wallpaper
 exec_always feh --bg-fill ~/Pictures/Wallpaper/182840.jpg
 
 # keybinds 
 exec_always xmodmap ~/.Xmodmap
+
+# Email
+bindsym $mod+F9 exec --no-startup-id "i3-msg 'workspace 9. Email ; append_layout ~/.config/i3/workspace-9.json'; exec konsole --profile Mutt -e neomutt"
 
 # calculator 
 bindsym $mod+F12 exec urxvt -e qalc
@@ -297,6 +330,17 @@ exec /usr/lib/xfce4/notifyd/xfce4-notifyd
 # caffeine
 exec caffeine
 
+# dropbox
+exec python2 ~/Dropbox/dropbox.py start
+
+# octopi
+exec octopi-notifier
+
+# Monitor switching
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+bindsym $mod+Ctrl+l move workspace to output right
 
 # Screenshots
 bindsym Control+Print exec scrot -u 'Screenshot_%Y%m%d_%H%M%S.png' -e 'mv $f ~/Pictures'
